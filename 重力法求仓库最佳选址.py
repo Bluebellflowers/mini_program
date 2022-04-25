@@ -27,7 +27,7 @@ y0 = sum_y0 / sum_y0_y
 print(x0, y0)
 
 # 终止迭代条件
-condition = 0.3
+condition = 0.1
 num = 1
 while True:
     # 储存上一次计算结果
