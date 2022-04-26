@@ -13,7 +13,6 @@ from math import sqrt
 class Liqun:
     def __init__(self, nw, p, w, h, xrange, yrange):
         # Pso参数：
-        # nr 配送中心个数
         self.ww = 0.75  # 惯性因子
         self.c1 = 0.2  # 学习因子 1
         self.c2 = 0.2  # 学习因子 2
@@ -25,8 +24,8 @@ class Liqun:
         self.p = p  # 坐标矩阵
         self.w = w  # 需求量列表
         self.h = h  # 运输费率
-        self.xrange = xrange
-        self.yrange = yrange
+        self.xrange = xrange  # x的边界范围
+        self.yrange = yrange  # y的边界范围
 
     # ============================================ 目标函数公式：===================================================
     def calc_f(self, X):  # 计算个体粒子的的适应度值，也就是目标函数值，X 的维度是 size * dim

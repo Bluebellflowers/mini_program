@@ -2,6 +2,7 @@ import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 from operator import itemgetter
+from copy import  deepcopy
 
 dist = [
     [10],
@@ -133,3 +134,36 @@ nx.draw_networkx_labels(G, pos)
 labels = nx.get_edge_attributes(G, 'weight')
 nx.draw_networkx_edge_labels(G, pos, edge_labels=labels)
 plt.show()
+
+# 对结果进行分析
+g_info=G.adj
+# 初始结点为0即为一条运输路线
+init_node=g_info[0]
+route_node=deepcopy(g_info)
+total_route=[]
+weight=0  # 记录路线长度
+# 导出运输路线
+for node in init_node:
+    part_route = [0]  # 记录路线
+    tail=[node]
+    weight+=init_node[node]['weight']
+    part_route.extend(tail)
+    while True:
+        now_dict=route_node[tail[0]]  # 存储当前路线情况的字典
+        tail = list(route_node[tail[0]].keys())  # 该条线路的尾结点
+        if tail[0]==0:
+            part_route.append(0)
+            weight += now_dict[tail[0]]['weight']
+            total_route.append(np.array(part_route))
+            break
+        else:
+            part_route.extend(tail)
+            weight += now_dict[tail[0]]['weight']
+total_route=np.array(total_route)
+total_route=1+total_route
+for index,_ in enumerate(total_route):
+    print("第{}调路线为：".format(index+1))
+    for i in _:
+        print('{}-->'.format(i),end="")
+    print()
+print('路线长度为：{}'.format(weight))
